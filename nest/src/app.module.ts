@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD, APP_FILTER } from '@nestjs/core';
+import { AppController } from './app.controller';
 import { DataStoreModule } from './data/data-store.module';
 import { AuthModule } from './auth/auth.module';
 import { PilotModule } from './pilot/pilot.module';
@@ -10,6 +11,7 @@ import { AuthGuard } from './common/guards/auth.guard';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 @Module({
+  controllers: [AppController],
   imports: [
     DataStoreModule,
     AuthModule,
