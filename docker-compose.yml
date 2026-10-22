@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: ./nest
+      dockerfile: Dockerfile
+    container_name: susi-air-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=susi-air-technical-test-jwt-secret-key-2026
+      - CORS_ORIGIN=*
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./nuxt
+      dockerfile: Dockerfile
+    container_name: susi-air-frontend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - NUXT_PUBLIC_API_BASE=http://backend:3000
+    depends_on:
+      - backend
+    restart: unless-stopped

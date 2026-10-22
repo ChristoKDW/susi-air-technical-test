@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: susi-air-backend-nest
+    runtime: node
+    rootDir: nest
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /auth/login
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: "*"

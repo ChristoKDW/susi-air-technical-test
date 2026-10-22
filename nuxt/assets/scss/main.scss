@@ -1,0 +1,154 @@
+// Susi Air Brand Design System & Color Palette
+$susi-navy: #0E2138;
+$susi-navy-light: #162F4D;
+$susi-red: #E63757;
+$susi-red-light: #FDE8EC;
+$susi-bg: #F5F6F8;
+$susi-white: #FFFFFF;
+$susi-gray-50: #F9FAFB;
+$susi-gray-100: #F3F4F6;
+$susi-gray-200: #E5E7EB;
+$susi-gray-300: #D1D5DB;
+$susi-gray-500: #6B7280;
+$susi-gray-700: #374151;
+$susi-gray-900: #111827;
+$susi-green: #1FBF8F;
+$susi-green-light: #E8F8F3;
+$susi-amber: #F59E0B;
+$susi-amber-light: #FEF3C7;
+$susi-cyan: #22C5E8;
+$susi-cyan-light: #E0F9FE;
+
+$border-radius-card: 14px;
+$border-radius-pill: 9999px;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #E2E8F0;
+  color: $susi-gray-900;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Mobile-first app container shell
+.app-container {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: $susi-bg;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 10px 25px -5px rgba(14, 33, 56, 0.1), 0 8px 10px -6px rgba(14, 33, 56, 0.05);
+
+  @media (max-width: 440px) {
+    box-shadow: none;
+  }
+}
+
+// Bold typography for numbers
+.num-bold {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.num-extra-bold {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+// Button Pill Style
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: $border-radius-pill;
+  padding: 12px 24px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.btn-primary {
+    background: linear-gradient(135deg, $susi-red 0%, #D42646 100%);
+    color: $susi-white;
+    box-shadow: 0 4px 12px rgba(230, 55, 87, 0.3);
+
+    &:hover {
+      box-shadow: 0 6px 16px rgba(230, 55, 87, 0.4);
+    }
+  }
+
+  &.btn-secondary {
+    background-color: $susi-navy;
+    color: $susi-white;
+
+    &:hover {
+      background-color: $susi-navy-light;
+    }
+  }
+
+  &.btn-outline {
+    background-color: transparent;
+    border: 1.5px solid $susi-gray-200;
+    color: $susi-gray-700;
+
+    &:hover {
+      background-color: $susi-gray-50;
+    }
+  }
+}
+
+// Card Style (12-16px border-radius)
+.card-base {
+  background-color: $susi-white;
+  border-radius: $border-radius-card;
+  box-shadow: 0 2px 8px rgba(14, 33, 56, 0.04);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+}
+
+// Badge Pill Style
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: $border-radius-pill;
+  text-transform: capitalize;
+
+  &.badge-success {
+    background-color: $susi-green-light;
+    color: #0E7051;
+  }
+
+  &.badge-warning {
+    background-color: $susi-amber-light;
+    color: #92400E;
+  }
+
+  &.badge-danger {
+    background-color: $susi-red-light;
+    color: $susi-red;
+  }
+}
