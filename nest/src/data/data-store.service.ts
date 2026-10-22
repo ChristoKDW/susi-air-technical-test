@@ -74,10 +74,15 @@ export class DataStoreService implements OnModuleInit {
   private resolveFilePath(filename: string): string {
     const candidates = [
       path.resolve(process.cwd(), 'data', filename),
+      path.resolve(process.cwd(), 'nest/data', filename),
       path.resolve(process.cwd(), 'data-source', filename),
       path.resolve(process.cwd(), '../data-source', filename),
+      path.resolve(__dirname, '../data', filename),
       path.resolve(__dirname, '../../data', filename),
+      path.resolve(__dirname, '../../../data', filename),
       path.resolve(__dirname, '../../../data-source', filename),
+      path.resolve('/var/task/nest/data', filename),
+      path.resolve('/var/task/data', filename),
       path.resolve(process.cwd(), filename),
     ];
 
