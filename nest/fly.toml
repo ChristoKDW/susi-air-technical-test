@@ -1,0 +1,25 @@
+# fly.toml app configuration file for Susi Air NestJS Backend
+app = "susi-air-backend"
+primary_region = "sin"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
+  JWT_SECRET = "susi-air-technical-test-jwt-secret-key-2026"
+  CORS_ORIGIN = "*"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1
