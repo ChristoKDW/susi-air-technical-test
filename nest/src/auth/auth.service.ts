@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService } from './jwt.service';
 import { HARDCODED_PILOT } from '../common/constants/app.constants';
 import { LoginDto } from './dto/login.dto';
 import { DataStoreService } from '../data/data-store.service';
