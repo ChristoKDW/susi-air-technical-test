@@ -43,8 +43,17 @@ if (!process.env.VERCEL) {
 
 // Vercel Serverless Function Handler
 export default async function handler(req: Request, res: Response) {
-  if (!cachedServer) {
-    cachedServer = await bootstrapServer();
+  try {
+    if (!cachedServer) {
+      cachedServer = await bootstrapServer();
+    }
+    return cachedServer(req, res);
+  } catch (err: any) {
+    console.error('Serverless bootstrap error:', err);
+    return res.status(500).json({
+      statusCode: 500,
+      error: 'Internal Server Error',
+      message: err?.message || 'Bootstrap error',
+    });
   }
-  cachedServer(req, res);
 }

@@ -101,9 +101,15 @@ export class DataStoreService implements OnModuleInit {
     this.logger.log('Loading mock JSON datasets into memory...');
 
     // 1. Load flight hours
-    const flightHoursPath = this.resolveFilePath('mock-flight-hours.json');
-    const flightHoursRaw = fs.readFileSync(flightHoursPath, 'utf8');
-    const flightHoursJson = JSON.parse(flightHoursRaw);
+    let flightHoursJson: any;
+    try {
+      const flightHoursPath = this.resolveFilePath('mock-flight-hours.json');
+      const flightHoursRaw = fs.readFileSync(flightHoursPath, 'utf8');
+      flightHoursJson = JSON.parse(flightHoursRaw);
+    } catch (err: any) {
+      this.logger.warn(`Filesystem resolve fallback for flight-hours: ${err?.message}`);
+      flightHoursJson = require('../../data/mock-flight-hours.json');
+    }
 
     this.pilot = flightHoursJson.pilot;
     this.limits = flightHoursJson.limits;
@@ -116,9 +122,15 @@ export class DataStoreService implements OnModuleInit {
     }
 
     // 2. Load documents
-    const documentsPath = this.resolveFilePath('mock-documents.json');
-    const documentsRaw = fs.readFileSync(documentsPath, 'utf8');
-    const documentsJson = JSON.parse(documentsRaw);
+    let documentsJson: any;
+    try {
+      const documentsPath = this.resolveFilePath('mock-documents.json');
+      const documentsRaw = fs.readFileSync(documentsPath, 'utf8');
+      documentsJson = JSON.parse(documentsRaw);
+    } catch (err: any) {
+      this.logger.warn(`Filesystem resolve fallback for documents: ${err?.message}`);
+      documentsJson = require('../../data/mock-documents.json');
+    }
 
     this.documents = documentsJson.documents || [];
     if (documentsJson.thresholds?.warningDays !== undefined) {
@@ -126,9 +138,15 @@ export class DataStoreService implements OnModuleInit {
     }
 
     // 3. Load schedules
-    const schedulesPath = this.resolveFilePath('mock-schedules.json');
-    const schedulesRaw = fs.readFileSync(schedulesPath, 'utf8');
-    const schedulesJson = JSON.parse(schedulesRaw);
+    let schedulesJson: any;
+    try {
+      const schedulesPath = this.resolveFilePath('mock-schedules.json');
+      const schedulesRaw = fs.readFileSync(schedulesPath, 'utf8');
+      schedulesJson = JSON.parse(schedulesRaw);
+    } catch (err: any) {
+      this.logger.warn(`Filesystem resolve fallback for schedules: ${err?.message}`);
+      schedulesJson = require('../../data/mock-schedules.json');
+    }
 
     this.schedules = schedulesJson.schedules || [];
     this.scheduleLegend = schedulesJson.legend || [];
