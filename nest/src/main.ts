@@ -1,9 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express, { Express, Request, Response } from 'express';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+let cachedServer: Express;
+
+async function bootstrapServer(): Promise<Express> {
+  const expressApp = express();
+  const adapter = new ExpressAdapter(expressApp);
+  const app = await NestFactory.create(AppModule, adapter);
 
   // Enable CORS for frontend Nuxt integration
   app.enableCors({
@@ -21,9 +27,24 @@ async function bootstrap() {
     }),
   );
 
-  const port = process.env.PORT ?? 3000;
-  await app.listen(port);
-  console.log(`[NestJS Server] Application is running on: http://localhost:${port}`);
+  await app.init();
+  return expressApp;
 }
 
-bootstrap();
+// Standalone server for local development & Docker
+if (!process.env.VERCEL) {
+  const port = process.env.PORT ?? 3000;
+  bootstrapServer().then((server) => {
+    server.listen(port, () => {
+      console.log(`[NestJS Server] Application is running on: http://localhost:${port}`);
+    });
+  });
+}
+
+// Vercel Serverless Function Handler
+export default async function handler(req: Request, res: Response) {
+  if (!cachedServer) {
+    cachedServer = await bootstrapServer();
+  }
+  cachedServer(req, res);
+}
